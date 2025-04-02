@@ -1,1 +1,5 @@
-spring.application.name=crudapplication
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/products
+    username: postgres
+    password: root
