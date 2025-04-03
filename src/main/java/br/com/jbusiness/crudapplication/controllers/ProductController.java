@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +48,17 @@ public class ProductController {
             product.setPriceInCents(data.priceInCents());
             this.repository.save(product);
             return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> DeleteProduct(@PathVariable String id) {
+        Optional<Product> optionalProduct = this.repository.findById(id);
+        if (optionalProduct.isPresent()) {
+            this.repository.delete(optionalProduct.get());
+            return ResponseEntity.ok("delete de produto realizado");
         } else {
             return ResponseEntity.notFound().build();
         }
