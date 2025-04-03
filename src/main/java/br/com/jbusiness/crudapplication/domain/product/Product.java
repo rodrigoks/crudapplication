@@ -23,6 +23,11 @@ public class Product {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
-    private Number priceInCents;
+    private Integer priceInCents;
+
+    public Product(RequestProduct data) {
+        this.name = data.name();
+        this.priceInCents = data.priceInCents();
+    }
 
 }
